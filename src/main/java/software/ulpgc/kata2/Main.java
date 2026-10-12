@@ -5,19 +5,36 @@ import java.io.*;
 import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
     static void main() throws IOException {
 
         String rawData = "Name:Year:Director:Duration\n" +
                          "Matrix:1999:Wachowski:136\n" +
-                         "Interstellar:2014:Nolan:169";
+                         "Interstellar:2014:Nolan:169\n" +
+                         "La Odisea:2026:Nolan:178\n" +
+                         "Inception:2010:Nolan:148";
 
         try (InputStream is = new ByteArrayInputStream(rawData.getBytes())) {
             List<Movie> movies = toMovies(is);
-            for (Movie movie : movies) {
-                System.out.println(movie);
+
+            Map<String, Long> summary = movies.stream()
+                    .collect(Collectors.groupingBy(Movie::director, Collectors.counting()));
+
+            writeSummary(summary, System.out);
+
             }
+        }
+
+    private static void writeSummary(Map<String, Long> summary, OutputStream os) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os))) {
+
+            for (Map.Entry<String, Long> entry : summary.entrySet()) {
+                writer.write(entry.getKey() + ": " +  entry.getValue() + " movie(s)\n" );
+            }
+            writer.flush();
         }
     }
 
