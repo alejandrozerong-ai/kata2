@@ -8,22 +8,32 @@ import java.util.List;
 
 public class Main {
     static void main() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream("/movies.tsv")))) {
-            List<Movie> movies = toMovies(reader.readAllLines());
+
+        String rawData = "Name:Year:Director:Duration\n" +
+                         "Matrix:1999:Wachowski:136\n" +
+                         "Interstellar:2014:Nolan:169";
+
+        try (InputStream is = new ByteArrayInputStream(rawData.getBytes())) {
+            List<Movie> movies = toMovies(is);
             for (Movie movie : movies) {
                 System.out.println(movie);
             }
         }
     }
 
-    private static List<Movie> toMovies(List<String> strings) {
-        List<Movie> result = new ArrayList<>();
-        for (int i=1; i<strings.size(); i++){
-            String line = strings.get(i).trim();
-            if  (line.isEmpty()) continue;
-            result.add(toMovie(line));
+    private static List<Movie> toMovies(InputStream is) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+            List<String> strings = reader.readAllLines();
+            List<Movie> result = new ArrayList<>();
+            for (int i=1; i<strings.size(); i++){
+                String line = strings.get(i).trim();
+                if  (line.isEmpty()) continue;
+                result.add(toMovie(line));
+
+            }
+            return  result;
+
         }
-        return result;
 
     }
 
