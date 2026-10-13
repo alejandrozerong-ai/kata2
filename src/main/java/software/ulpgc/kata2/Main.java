@@ -12,9 +12,9 @@ public class Main {
     static void main() throws IOException {
 
         String rawData = "Name\tYear\tDirector\tDuration\n" +
-                         "Matrix\t1999\tWachowski\t136\n" +
-                         "Interstellar\t2014\tNolan\t169\n" +
-                         "Inception\t2010\tNolan\t148";
+                "Matrix\t1999\tWachowski\t136\n" +
+                "Interstellar\t2014\tNolan\t169\n" +
+                "Inception\t2010\tNolan\t148";
 
         try (InputStream is = new ByteArrayInputStream(rawData.getBytes())) {
             List<Movie> movies = toMovies(is);
@@ -23,8 +23,8 @@ public class Main {
                     .collect(Collectors.groupingBy(Movie::director, Collectors.counting()));
 
             writeSummary(summary, System.out);
-            }
         }
+    }
 
     private static void writeSummary(Map<String, Long> summary, OutputStream os) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os))) {
@@ -33,8 +33,8 @@ public class Main {
                 writer.write(entry.getKey() + ": " + entry.getValue() + " movie(s)\n");
             }
             writer.flush();
+        }
     }
-}
 
     private static List<Movie> toMovies(InputStream is) throws IOException {
 
