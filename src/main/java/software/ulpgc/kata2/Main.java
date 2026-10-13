@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Main {
-    static void main() throws IOException {
+    public static void main(String[] args) throws IOException {
 
         String rawData = "Name:Year:Director:Duration\n" +
                 "El Padrino:1972:Coppola:132\n" +
