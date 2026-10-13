@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Main {
-    static void main() throws IOException {
+    public static void main(String[] args) throws IOException {
 
         String rawData = "Name\tYear\tDirector\tDuration\n" +
                 "Matrix\t1999\tWachowski\t136\n" +
