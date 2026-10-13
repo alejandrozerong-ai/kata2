@@ -1,11 +1,11 @@
-
 # Directorios de salida
+
 out/
 bin/
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+!src/main/**/target/
+!src/test/**/target/
 
 # Archivos de compilación y binarios
 *.jar
@@ -44,8 +44,8 @@ Thumbs.db
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+!src/main/**/build/
+!src/test/**/build/
 
 ### VS Code ###
 .vscode/
